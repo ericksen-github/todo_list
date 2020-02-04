@@ -6,4 +6,7 @@ const ProjectFactory = (title, description) => {
     }; 
 }
 
-export {ProjectFactory};
+let projectsArray = []; 
+
+
+export {ProjectFactory, projectsArray};
