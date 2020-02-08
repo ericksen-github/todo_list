@@ -1,31 +1,85 @@
 import { projectsArray } from "./project";
+import {TaskFactory} from "./task.js"; 
+import {removeButtonFunctions} from "./removeTaskButton.js"; 
 
 const taskFunctions = (() => {
     let currentProjectDOM; 
 
     const addNewTask = () => {
+        const currentProjectTitle = currentProjectDOM.childNodes[0]. // is location of title text of
+        childNodes[0].innerHTML;                                     // project in DOM of current container
+
         const taskName = document.getElementById("nameTaskTextBox").value;
         const taskDescription = document.getElementById("descriptionTaskTextBox").value;
         const taskDate = document.getElementById("taskDate").value; 
         const taskPriority = document.getElementById("taskPriority").value; 
-        const taskArray= [taskName, taskDescription, taskDate, taskPriority];
-
-        const taskContainerDOM = document.createAttribute("div"); 
-        const taskNameDOM = document.createElement("div"); 
-        const taskDescriptionDOM = document.createElement("div"); 
-        const dueDateDOM = document.createElement("div"); 
-        const priorityDOM = document.createElement("div"); 
+        const newTask = TaskFactory(taskName, taskDescription, taskDate, taskPriority);
+        let indexOfProject; 
 
         for (let i = 0; i < projectsArray.length; i++) {
-            if (projectsArray[i].title){
-  
+            if (projectsArray[i].title == currentProjectTitle){
+                indexOfProject = i; 
             }
         }
-        console.log(projectsArray); 
+
+        projectsArray[indexOfProject].tasks.push(newTask)
+
+        createTable(); 
+        createNewTaskDOM(projectsArray[indexOfProject].tasks); 
+    }
+
+    const createNewTaskDOM = (project) => {
+
+        let taskHTML = ""; 
+
+        const tbodyOfCurrent = currentProjectDOM.childNodes[1].childNodes[0].childNodes[3]; 
+
+        for (let task of project) {
+
+            taskHTML += `<tr><td>${task.name}</td>
+                            <td>${task.description}</td>
+                            <td>${task.dueDate}</td>
+                            <td class = "priorityColumn">${task.priority}</td>
+                            <td class = "editColumn"><div class = "editButton">Edit</div></td>
+                            <td class = "removeOuter"><div class = "removeButton">Remove</div></td>
+                        </tr>
+                    `;
+        }
+        tbodyOfCurrent.innerHTML = taskHTML; 
+        removeButtonFunctions.createRemoveListeners(currentProjectDOM.childNodes[0].childNodes[0].innerHTML); 
+    }
+        
+    const createTable = () => {
+        const tableChecker = currentProjectDOM.childNodes[1];
+
+        if (tableChecker){
+            return; 
+        }
+ 
+        let tableHTML = ""; 
+        const tableContainer = document.createElement("div"); 
+    
+        tableHTML += `<table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Due Date</th>
+                                <th>Priority</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    `;
+    
+        tableContainer.innerHTML = tableHTML; 
+        currentProjectDOM.appendChild(tableContainer); 
     }
 
     const createNewTaskForm = (e) => {
-        currentProjectDOM = e.target.parentNode; 
+        currentProjectDOM = e.target.parentNode.childNodes[0]; 
 
         document.getElementById("overlay").style.display = "block"; 
         

@@ -29,13 +29,17 @@ const projectFunctions = (() => {
         projectsContainer.classList.add("projectsTaskContainer"); 
         container.appendChild(projectsContainer); 
 
+        const taskAndTitleContainer = document.createElement("div"); 
+        taskAndTitleContainer.classList.add("taskAndTitleContainer"); 
+        projectsContainer.appendChild(taskAndTitleContainer); 
+
         const projectTitleContainer = document.createElement("div"); 
         const projectTitle = document.createElement("div"); 
         projectTitleContainer.classList.add("projectTitleContainer"); 
         projectTitle.classList.add("projectTitles");
         projectTitle.innerHTML = nameText;
         projectTitleContainer.appendChild(projectTitle); 
-        projectsContainer.appendChild(projectTitleContainer); 
+        taskAndTitleContainer.appendChild(projectTitleContainer); 
         
         const projectTasksContainer = document.createElement("div"); 
         projectsContainer.appendChild(projectTasksContainer); 
