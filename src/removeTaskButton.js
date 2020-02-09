@@ -1,4 +1,4 @@
-import { projectsArray } from "./project";
+import { projectsArray } from "./localStorage";
 
 const removeButtonFunctions = (() => {
 
@@ -19,14 +19,12 @@ const removeButtonFunctions = (() => {
         for (let i = 0; i < projectsArray.length; i++) {             // finds task name in projectsArray
             if (projectsArray[i].title == projectTitle) {   
                 currentProject = projectsArray[i]; 
-                console.log(currentProject); 
             }
         }
 
         for (let j = 0; j < currentProject.tasks.length; j++) {
             if (currentProject.tasks[j].name == taskName) {
                 currentProject.tasks.splice(j, 1);    // and splices out task
-                console.log(currentProject); 
             }
         }     
     }

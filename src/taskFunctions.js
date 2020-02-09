@@ -1,4 +1,4 @@
-import { projectsArray } from "./project";
+import { projectsArray } from "./localStorage";
 import {TaskFactory} from "./task.js"; 
 import {removeButtonFunctions} from "./removeTaskButton.js"; 
 
@@ -21,15 +21,13 @@ const taskFunctions = (() => {
                 indexOfProject = i; 
             }
         }
-
+ 
         projectsArray[indexOfProject].tasks.push(newTask)
-
         createTable(); 
         createNewTaskDOM(projectsArray[indexOfProject].tasks); 
     }
 
     const createNewTaskDOM = (project) => {
-
         let taskHTML = ""; 
 
         const tbodyOfCurrent = currentProjectDOM.childNodes[1].childNodes[0].childNodes[3]; 

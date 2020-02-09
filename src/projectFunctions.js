@@ -1,6 +1,6 @@
-import {ProjectFactory, projectsArray} from "./project.js"
+import {ProjectFactory} from "./project.js"
 import {taskFunctions} from "./taskFunctions.js"
-import { sub } from "date-fns";
+import {projectsArray} from "./localStorage.js"
 
 const projectFunctions = (() => {
     
